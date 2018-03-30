@@ -1,0 +1,226 @@
+body {
+    font-family: $font-stack;
+}
+
+// remove default style
+a {
+    color: #000;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+}
+
+.general-link {
+    @extend %link-primary;
+}
+
+// remove margin
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+// common margin
+.wrapper {
+    padding: 25px 0;
+    margin: 0 10px;
+}
+main .wrapper {
+    padding: 0;
+}
+section, .section {
+    margin-bottom: 40px;
+}
+
+// count border as box size
+.border-box {
+    box-sizing: border-box;
+}
+
+// custom font sizes & margin
+h1, h2, h3, h4 {
+    margin-bottom: 1em;
+    line-height: 1.25;
+}
+p {
+    margin-bottom: 1em;
+    line-height: 1.25;
+}
+article, .article {
+    margin-bottom: 1rem;
+    text-align: justify;
+    p {
+        line-height: 1.75;
+    }
+}
+
+// heading prefix and suffix
+.heading-prefix {
+    margin-bottom: 1rem;
+    font-size: $h4-font-size;
+}
+.heading-suffix {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+h4 { font-size: $h4-font-size; }
+h3 { font-size: $h3-font-size; }
+h2 { font-size: $h2-font-size; }
+h1 { font-size: $h1-font-size; }
+
+// font sizes for non-headers
+.h1 { font-size: $h1-font-size; }
+.h2 { font-size: $h2-font-size; }
+.h3 { font-size: $h3-font-size; }
+.h4 { font-size: $h4-font-size; }
+
+// SZU theme color
+.szu-color { color: $szu-color; }
+
+// logo as background
+.logo {
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+.primary-button {
+    @extend %button;
+    background: $szu-color;
+    color: #fff;
+    &:not(.disabled):hover {
+        background: #730032;
+    }
+}
+
+.secondary-button {
+    @extend %button;
+    background: #ddd;
+    color: #000;
+    &:hover {
+        background: #d6d6d6;
+    }
+}
+
+.user-link {
+    color: #000;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// center
+.center {
+    text-align: center;
+}
+
+@media (min-width: 1045px) {
+    .wrapper {
+        margin: 0 auto;
+        width: 1024px;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.togglable {
+    .togglable-content {
+        display: none;
+        padding-top: 1em;
+    }
+    &.open .togglable-content {
+        display: block;
+    }
+    [class$=toggler]::before {
+        content: '显示';
+    }
+    &.open [class$=toggler]::before {
+        content: '隐藏';
+    }
+}
+
+.option-toggler {
+    @extend %content-toggler;
+    font-size: $h4-font-size;
+    span::before {
+        content: '搜索选项';
+    }
+}
+
+.secondary-text {
+    @extend %text-secondary;
+}
+
+// search form
+.search-field {
+    border: 1px solid $border-color;
+}
+.search-button {
+    @extend %button;
+    // remove extra style
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 0;
+    line-height: 1;
+    background: $szu-color;
+    color: #fff;
+    &:hover {
+        background: #730032;
+    }
+}
+
+.flash-msg {
+    display: block;
+    padding: 0.5em 0;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 2s;
+    &.fadding {
+        opacity: 0;
+    }
+    &.closed {
+        display: none;
+    }
+}
+
+.fixed-msg {
+    padding: 1rem 0;
+    text-align: center;
+    background: #e3e3e3;
+    font-size: $h4-font-size;
+    line-height: 1.25;
+    .secondary {
+        margin-top: 0.5em;
+        font-size: 1rem;
+    }
+}
+
+.option-panel {
+    padding: 1rem;
+    background-color: #e3e3e3;
+    li {
+        margin-bottom: 1rem;
+    }
+    .link-group {
+        width: 100%;
+    }
+    &.open {
+        padding-bottom: 0;
+    }
+}
+
+@media (min-width: 1045px) {
+    .option-panel {
+        .link-group {
+            width: 33.33%;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+html(lang="zh-Hans")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/public/style.css")
+        script(src="/public/script.js")
+        title 写信 - 深圳大学建言献策系统
+    body
+        include ./components/header.pug
+        main
+            div(class="wrapper")
+                section(id="new_petition")
+                    form(id="petition_creator" action="/petitions/new" method="post" novalidate)
+                        h1 写信 <div class="heading-suffix">请记住，你写的信必须满足信件标准。</div>
+                        div(class="form-group")
+                            label(for="petition_action") 你希望我们做什么？
+                            p(class="error-msg") 请填写你的期望
+                            textarea(class="form-control" name="petition_action", id="petition_action" required)
+                        div(class="form-group")
+                            label(for="petition_background") 该事项的背景
+                            p(class="error-msg") 请填写背景
+                            textarea(class="form-control" name="petition_background", id="petition_background" required)
+                        div(class="form-group")
+                            label(for="petition_additional_details") 关于该事项的更多细节（可选）
+                            textarea(class="form-control" name="petition_additional_details", id="petition_additional_details")
+                        button(class="primary-button" id="preview" type="button") 预览信件
+                    div(class="hidden" id="petition_previewer")
+                        h1 预览信件
+                        article(id="petition_draft")
+                            h2(id="draft_action")
+                            p(id="draft_background")
+                            p(id="draft_details")
+                        div(class="button-group")
+                            button(class="primary-button" id="submit" type="submit" form="petition_creator") 提交信件
+                            button(class="secondary-button" id="go_back" type="button") 返回并修改
+                        div(class="article secondary-text")
+                            p 提交信件后，你将无法对其进行修改。
+                            p 如果信件中含有你的个人资料，请仔细考虑你是否乐意公开这些信息。
+                            p 你不能自行删除已经发布的信件。
+        include ./components/footer.pug

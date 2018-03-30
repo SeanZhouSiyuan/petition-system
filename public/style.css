@@ -1,0 +1,431 @@
+@charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+.general-link, .petition-item .petition-link, .petition-item .response-link, .petition-item .debate-link, .view-all-link {
+  color: #1E5391; }
+  .general-link:hover, .petition-item .petition-link:hover, .petition-item .response-link:hover, .petition-item .debate-link:hover, .view-all-link:hover {
+    color: #112e51;
+    text-decoration: none; }
+
+.primary-button, .secondary-button, .search-button {
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border: none;
+  border-radius: 0.25rem;
+  line-height: 1.25; }
+  .primary-button:hover, .secondary-button:hover, .search-button:hover {
+    text-decoration: none;
+    cursor: pointer; }
+  .disabled.primary-button, .disabled.secondary-button, .disabled.search-button {
+    cursor: default; }
+
+.secondary-text, .petition-item .petition-info, .signature-progress-bar .signature-info {
+  color: #666; }
+
+.option-toggler, .petition-details-toggler, .response-details-toggler {
+  margin-bottom: 0;
+  line-height: 1.25;
+  color: #1E5391; }
+  .option-toggler:hover, .petition-details-toggler:hover, .response-details-toggler:hover {
+    color: #112e51;
+    cursor: pointer; }
+
+.flex {
+  display: flex; }
+
+.flex-row-reverse {
+  flex-direction: row-reverse; }
+
+.flex-column {
+  flex-direction: column; }
+
+.flex-space-between {
+  justify-content: space-between; }
+
+.flex-middle {
+  align-items: center; }
+
+.flex-bottom {
+  align-items: flex-end; }
+
+.flex-wrap {
+  flex-wrap: wrap; }
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; }
+
+a {
+  color: #000;
+  text-decoration: none; }
+  a:hover {
+    text-decoration: underline; }
+
+.no-margin-bottom {
+  margin-bottom: 0 !important; }
+
+.wrapper {
+  padding: 25px 0;
+  margin: 0 10px; }
+
+main .wrapper {
+  padding: 0; }
+
+section, .section {
+  margin-bottom: 40px; }
+
+.border-box {
+  box-sizing: border-box; }
+
+h1, h2, h3, h4 {
+  margin-bottom: 1em;
+  line-height: 1.25; }
+
+p {
+  margin-bottom: 1em;
+  line-height: 1.25; }
+
+article, .article {
+  margin-bottom: 1rem;
+  text-align: justify; }
+  article p, .article p {
+    line-height: 1.75; }
+
+.heading-prefix {
+  margin-bottom: 1rem;
+  font-size: 1.25rem; }
+
+.heading-suffix {
+  margin-top: 1rem;
+  font-size: 1rem; }
+
+h4 {
+  font-size: 1.25rem; }
+
+h3 {
+  font-size: 1.5rem; }
+
+h2 {
+  font-size: 1.75rem; }
+
+h1 {
+  font-size: 2rem; }
+
+.h1 {
+  font-size: 2rem; }
+
+.h2 {
+  font-size: 1.75rem; }
+
+.h3 {
+  font-size: 1.5rem; }
+
+.h4 {
+  font-size: 1.25rem; }
+
+.szu-color {
+  color: #83045c; }
+
+.logo {
+  background-position: 0 0;
+  background-repeat: no-repeat; }
+
+.primary-button {
+  background: #83045c;
+  color: #fff; }
+  .primary-button:not(.disabled):hover {
+    background: #730032; }
+
+.secondary-button {
+  background: #ddd;
+  color: #000; }
+  .secondary-button:hover {
+    background: #d6d6d6; }
+
+.user-link {
+  color: #000; }
+  .user-link:hover {
+    text-decoration: underline; }
+
+.center {
+  text-align: center; }
+
+@media (min-width: 1045px) {
+  .wrapper {
+    margin: 0 auto;
+    width: 1024px; } }
+
+.hidden {
+  display: none; }
+
+.disabled {
+  opacity: 0.5; }
+
+.togglable .togglable-content {
+  display: none;
+  padding-top: 1em; }
+
+.togglable.open .togglable-content {
+  display: block; }
+
+.togglable [class$=toggler]::before {
+  content: '\663E\793A'; }
+
+.togglable.open [class$=toggler]::before {
+  content: '\9690\85CF'; }
+
+.option-toggler {
+  font-size: 1.25rem; }
+  .option-toggler span::before {
+    content: '\641C\7D22\9009\9879'; }
+
+.search-field {
+  border: 1px solid #d3d3d3; }
+
+.search-button {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  line-height: 1;
+  background: #83045c;
+  color: #fff; }
+  .search-button:hover {
+    background: #730032; }
+
+.flash-msg {
+  display: block;
+  padding: 0.5em 0;
+  border: 1px solid #d3d3d3;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 2s; }
+  .flash-msg.fadding {
+    opacity: 0; }
+  .flash-msg.closed {
+    display: none; }
+
+.fixed-msg {
+  padding: 1rem 0;
+  text-align: center;
+  background: #e3e3e3;
+  font-size: 1.25rem;
+  line-height: 1.25; }
+  .fixed-msg .secondary {
+    margin-top: 0.5em;
+    font-size: 1rem; }
+
+.option-panel {
+  padding: 1rem;
+  background-color: #e3e3e3; }
+  .option-panel li {
+    margin-bottom: 1rem; }
+  .option-panel .link-group {
+    width: 100%; }
+  .option-panel.open {
+    padding-bottom: 0; }
+
+@media (min-width: 1045px) {
+  .option-panel .link-group {
+    width: 33.33%; } }
+
+header {
+  border-top: 6px solid #83045c;
+  margin-bottom: 40px;
+  background: #fff; }
+  header .wrapper {
+    border-bottom: 1px solid #d3d3d3; }
+  header #sub-intro {
+    margin-bottom: 0.5rem;
+    color: #83045c;
+    letter-spacing: 0.25rem; }
+  header #intro {
+    letter-spacing: 0.25rem; }
+
+.petition-item {
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #d3d3d3;
+  margin: 0 10px 20px;
+  width: 100%; }
+  .petition-item .petition-heading {
+    margin-top: 0; }
+  .petition-item .response-summary, .petition-item .debate-summary {
+    margin: 1em 0; }
+
+@media (min-width: 769px) {
+  .petition-item {
+    width: calc(50% - 20px); } }
+
+.signature-progress-bar .signature-meter {
+  margin: 0.75rem 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  height: 1rem;
+  background: #ddd; }
+
+.signature-progress-bar .signature-meter .fill {
+  position: relative;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #83045c; }
+
+.petition-list {
+  margin: 0 -10px; }
+
+.petition-meta .meta {
+  margin-bottom: 1.75rem; }
+
+.petition-meta .meta > * {
+  margin-bottom: 1rem; }
+
+.petition-meta .data {
+  font-size: 1.25rem;
+  margin-bottom: 1rem; }
+
+#search_petitions .search-field {
+  padding: 0.25em;
+  border-right: none;
+  width: calc(100% - 40px);
+  font-size: 1.25rem; }
+
+#search_petitions .search-button {
+  width: 40px;
+  height: 40px;
+  font-size: 1.25rem; }
+
+.petition-details-toggler span::before {
+  content: '\4FE1\4EF6\7EC6\8282'; }
+
+.response-details-toggler span::before {
+  content: '\56DE\590D\5168\6587'; }
+
+form label {
+  display: block;
+  margin-bottom: 1em; }
+
+form button {
+  font-size: 1.25rem; }
+
+form textarea {
+  resize: vertical; }
+
+form .form-control {
+  box-sizing: border-box;
+  padding: 0.5em;
+  border: 1px solid #d3d3d3;
+  width: 100%;
+  line-height: 1.75;
+  font-size: 1rem;
+  font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; }
+
+form .error-msg {
+  display: none;
+  font-weight: bold;
+  color: #83045c; }
+
+form .form-group {
+  margin-bottom: 1.75rem; }
+  form .form-group.error > .form-control {
+    border: 4px solid #83045c; }
+  form .form-group.error > .error-msg {
+    display: block; }
+
+#petition_creator label {
+  font-size: 1.25rem; }
+
+#petition_creator textarea#petition_action {
+  min-height: 6rem; }
+
+#petition_creator textarea#petition_background {
+  min-height: 10rem; }
+
+#petition_creator textarea#petition_additional_details {
+  min-height: 12rem; }
+
+#petition_previewer button {
+  font-size: 1.25rem; }
+
+#petition_previewer button#submit {
+  margin-right: 1em; }
+
+#petition_previewer .button-group {
+  margin-bottom: 1.75rem; }
+
+#petition_draft {
+  padding-left: 1rem;
+  border-left: 0.5rem solid #d6d6d6;
+  margin-bottom: 1.75rem; }
+
+footer {
+  background: #83045c; }
+  footer .copyright {
+    color: white; }
+  footer .logo.szu-white {
+    width: 70px;
+    height: 70px;
+    background-size: 70px 70px;
+    margin-bottom: 0.75rem; }
+
+#footer_nav a {
+  display: block;
+  margin-bottom: 1em;
+  color: #fff; }
+
+#footer_nav a:hover {
+  text-decoration: underline;
+  cursor: pointer; }
+
+#footer_nav a:last-child {
+  margin-bottom: 0; }
+
+.logo.szu-white {
+  background-image: url(/public/images/szu-logo-white.png); }

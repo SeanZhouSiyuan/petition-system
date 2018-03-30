@@ -1,0 +1,12 @@
+// use flexbox
+.flex { display: flex; }
+// set main-axis layout direction
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-column { flex-direction: column; }
+// set main-axis layout
+.flex-space-between { justify-content: space-between; }
+// set cross-axis layout
+.flex-middle { align-items: center; }
+.flex-bottom { align-items: flex-end; }
+// do not wrap
+.flex-wrap { flex-wrap: wrap; }

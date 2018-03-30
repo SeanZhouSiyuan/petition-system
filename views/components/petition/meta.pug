@@ -1,0 +1,9 @@
+ul(class="section petition-meta")
+    - var creator = attributes.creatorName === 'Sean Zhou' ? '周思远' : attributes.creatorName;
+    li(class="meta").
+        <div>写信人</div>
+        <div class="data">#{creator}</div>
+    li(class="meta").
+        <div>截止日期</div>
+        <div class="data">#{deadline}</div>
+        <div class="secondary-text">所有信件有效期为一个月</div>

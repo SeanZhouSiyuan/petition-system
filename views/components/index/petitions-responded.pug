@@ -1,0 +1,13 @@
+section(id="petitions_with_response")
+    h2.
+        主管部门回复
+        <div class="heading-suffix">签名数达到100时，主管部门将作出回复</div>
+    ul(class="flex flex-wrap petition-list")
+        - var petitions = petitionGroup.respondedPetitions;
+        - for (let n = 0; n < 4; n++)
+            if petitions[n]
+                include ../misc/petition.pug
+            else
+                include ../misc/petition-responded.pug
+    p: a(class="view-all-link" href="/petitions?state=responded") 浏览所有已回复的信件
+    p: a(class="view-all-link" href="/petitions?state=awaiting_response") 浏览所有等待回复的信件

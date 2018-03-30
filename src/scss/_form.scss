@@ -1,0 +1,60 @@
+form {
+    label {
+        display: block;
+        margin-bottom: 1em;
+    }
+    button {
+        font-size: $h4-font-size;
+    }
+    textarea {
+        resize: vertical;
+    }
+    .form-control {
+        box-sizing: border-box;
+        padding: 0.5em;
+        border: 1px solid $border-color;
+        width: 100%;
+        line-height: 1.75;
+        font-size: 1rem;
+        font-family: $font-stack;
+    }
+    .error-msg {
+        display: none;
+        font-weight: bold;
+        color: $szu-color;
+    }
+    .form-group {
+        margin-bottom: $h2-font-size;
+        &.error > .form-control { border: 4px solid $szu-color; }
+        &.error > .error-msg { display: block; }
+    }
+}
+
+#petition_creator {
+    label {
+        font-size: $h4-font-size;
+    }
+    textarea {
+        &#petition_action { min-height: 6rem; }
+        &#petition_background { min-height: 10rem; }
+        &#petition_additional_details { min-height: 12rem; }
+    }
+}
+
+#petition_previewer {
+    button {
+        font-size: $h4-font-size;
+    }
+    button#submit {
+        margin-right: 1em;
+    }
+    .button-group {
+        margin-bottom: $h2-font-size;
+    }
+}
+
+#petition_draft {
+    padding-left: 1rem;
+    border-left: 0.5rem solid #d6d6d6;
+    margin-bottom: $h2-font-size;
+}

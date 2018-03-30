@@ -1,0 +1,20 @@
+section
+    - var willRespond = attributes.responseThresholdReachedAt ? true : false;
+    - var response = attributes.response;
+    if response
+        h2 主管部门已回复
+        blockquote
+            p(class="h4") #{response.summary}
+        div(class="togglable")
+            div(class="response-details-toggler"): span
+            div(class="togglable-content")
+                div(class="article")
+                    p #{response.details}
+    else if willRespond
+        h2.
+            主管部门将作出回复
+            <div class="heading-suffix">主管部门回复所有签名数达到100的信件</div>
+    else
+        h2.
+            100个签名时...
+            <div class="heading-suffix">获得100个签名时，主管部门将作出回复</div>

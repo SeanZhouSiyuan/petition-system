@@ -1,0 +1,25 @@
+- var petition = petitions[n];
+- var attributes = petition.attributes;
+li(class="petition-item")
+    h3(class="petition-heading")
+        a(class="petition-link" href=`/petitions/${petition.petitionId}`) #{attributes.action}
+    if attributes.response
+        - var createDate = attributes.response.createDate;
+        p(class="petition-info") 主管部门于#{createDate}作出了回复
+        blockquote
+            p(class="h4 response-summary") #{attributes.response.summary}
+        p(class="no-margin-bottom"): a(class="response-link" href=`/petitions/${petition.petitionId}`) 查看回复全文
+    else if attributes.debate
+        - var debateDate = attributes.debate.debateDate;
+        p(class="petition-info") 学校于#{debateDate}讨论了该议题
+        blockquote
+            p(class="h4 debate-summary no-margin-bottom") #{attributes.debate.overview}
+    else
+        div(class="signature-progress-bar")
+            - var signatureCount = attributes.signatureCount === undefined ? 0 : attributes.signatureCount;
+            - var signatureGoal = signatureCount >= 100 ? 1000 : 100;
+            div(class="signature-meter")
+                div(class="fill" style=`width: ${signatureCount / signatureGoal * 100}%;`)
+            div(class="secondary-text flex flex-space-between flex-bottom")
+                div(class="count") #{signatureCount}个签名
+                div(class="goal") 需要#{signatureGoal}个

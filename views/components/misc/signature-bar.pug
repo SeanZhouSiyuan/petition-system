@@ -1,0 +1,8 @@
+div(class="signature-progress-bar")
+    - var signatureCount = attributes.signatureCount === undefined ? 0 : attributes.signatureCount;
+    - var signatureGoal = signatureCount >= 100 ? 1000 : 100;
+    div(class="flex flex-space-between flex-bottom")
+        div(class="count h2") #{signatureCount}个签名
+        div(class="goal") 需要#{signatureGoal}个
+    div(class="signature-meter")
+        div(class="fill" style=`width: ${signatureCount / signatureGoal * 100}%;`)

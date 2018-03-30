@@ -1,0 +1,33 @@
+%link-primary {
+    color: #1E5391;
+    &:hover {
+        color: #112e51;
+        text-decoration: none;
+    }
+}
+%button {
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    border: none;
+    border-radius: 0.25rem;
+    line-height: 1.25;
+    &:hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+    &.disabled {
+        cursor: default;
+    }
+}
+%text-secondary {
+    color: #666;
+}
+%content-toggler{
+    margin-bottom: 0;
+    line-height: 1.25;
+    color: #1E5391;
+    &:hover {
+        color: #112e51;
+        cursor: pointer;
+    }
+}

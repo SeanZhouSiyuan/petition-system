@@ -1,0 +1,13 @@
+header
+    div(class="wrapper flex flex-space-between flex-bottom")
+        div
+            div(id="sub-intro" class="h3") 深圳大学
+            if (homepage)
+                div(id="intro" class="h2") 建言献策系统
+            else
+                a(id="intro" class="h2" href="/") 建言献策系统
+        div
+            if (isAuthenticated === true)
+                a(class="user-link" href="/logout") 登出
+            else
+                a(class="user-link" href="/login") 登录

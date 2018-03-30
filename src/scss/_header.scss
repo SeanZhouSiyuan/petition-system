@@ -1,0 +1,16 @@
+header {
+    border-top: 6px solid $szu-color;
+    margin-bottom: 40px;
+    background: #fff;
+    .wrapper {
+        border-bottom: 1px solid $border-color;
+    }
+    #sub-intro {
+        margin-bottom: 0.5rem;
+        color: $szu-color;
+        letter-spacing: 0.25rem;
+    }
+    #intro {
+        letter-spacing: 0.25rem;
+    }
+}

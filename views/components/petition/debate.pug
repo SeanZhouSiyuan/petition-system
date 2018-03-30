@@ -1,0 +1,16 @@
+section
+    - var willDebate = attributes.debateThresholdReachedAt ? true : false;
+    - var debate = attributes.debate;
+    if debate
+        h2 学校于#{debate.debateDate}讨论了这封信件
+        blockquote
+            p #{debate.overview}
+        a(class="general-link" href=debate.transcriptUrl) 查看讨论的文字记录
+    else if willDebate
+        h2.
+            学校将开会讨论这封信件
+            <div class="heading-suffix">学校开会讨论所有签名数达到1000的信件</div>
+    else
+        h2.
+            1000个签名时...
+            <div class="heading-suffix">获得1000个签名时，学校将开会讨论</div>

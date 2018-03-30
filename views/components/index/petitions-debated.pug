@@ -1,0 +1,14 @@
+section(id="petitions_with_debated_outcome")
+    h2.
+        学校开会讨论
+        <div class="heading-suffix">签名数达到1000时，学校将开会讨论</div>
+    ul(class="flex flex-wrap petition-list")
+        - var petitions = petitionGroup.debatedPetitions;
+        - for (let n = 0; n < 4; n++)
+            if (petitions[n])
+                include ../misc/petition.pug
+            else
+                include ../misc/petition-debated.pug
+    p: a(class="view-all-link" href="/petitions?state=debated") 浏览所有已讨论的信件
+    p: a(class="view-all-link" href="/petitions?state=awaiting_debate") 浏览所有等待讨论的信件
+    p: a(class="view-all-link" href="/petitions?state=not_debated") 浏览所有不予讨论的信件

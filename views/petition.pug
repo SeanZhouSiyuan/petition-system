@@ -1,0 +1,27 @@
+- var petitionId = petition.petitionId;
+- var attributes = petition.attributes;
+
+- var state = attributes.state;
+
+<!DOCTYPE html>
+html(lang="zh-Hans")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/public/style.css")
+        script(src="/public/script.js")
+        title #{attributes.action} - 信件
+    body
+        include ./components/header.pug
+        main
+            div(class="wrapper")
+                if newSignature
+                    div(class="flash-msg") #{newSignature.message}
+                include ./components/petition/body.pug
+                div(class="section")
+                    include ./components/misc/signature-bar.pug
+                include ./components/petition/response.pug
+                include ./components/petition/debate.pug
+                include ./components/petition/meta.pug
+        include ./components/footer.pug

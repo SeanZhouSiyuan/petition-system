@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+html(lang="zh-Hans")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/public/style.css")
+        title 登录 - 深圳大学建言献策系统
+    body
+        include ./components/header.pug
+        main
+            div(class="wrapper")
+                h1.
+                    登录
+                    <div class="heading-suffix">登录以确认你的身份。只有深圳大学的教师和学生可以写信和签署信件。</div>
+                div(class="section" id="login")
+                    a(class="primary-button" href="/auth/github") 统一身份认证
+        include ./components/footer.pug

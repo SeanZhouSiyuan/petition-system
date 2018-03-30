@@ -1,0 +1,100 @@
+.petition-item {
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid $border-color;
+    margin: 0 10px 20px;
+    width: 100%;
+    .petition-heading {
+        margin-top: 0;
+    }
+    .petition-info {
+        @extend %text-secondary;
+    }
+    .petition-link {
+        @extend %link-primary;
+    }
+    .response-summary, .debate-summary {
+        margin: 1em 0;
+    }
+    .response-link, .debate-link {
+        @extend %link-primary;
+    }
+}
+
+@media (min-width: 769px) {
+    .petition-item {
+        width: calc(50% - 20px);
+    }
+}
+
+// petition progress bar
+.signature-progress-bar {
+    .signature-meter {
+        margin: 0.75rem 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        height: 1rem;
+        background: #ddd;
+    }
+    .signature-meter .fill {
+        position: relative;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: $szu-color;
+    }
+    .signature-info {
+        @extend %text-secondary;
+    }
+}
+
+.petition-list {
+    margin: 0 -10px;
+}
+
+// view-all links
+.view-all-link {
+    @extend %link-primary;
+}
+
+.petition-meta {
+    .meta {
+        margin-bottom: $h2-font-size;
+    }
+    .meta > * {
+        margin-bottom: 1rem;
+    }
+    .data {
+        font-size: $h4-font-size;
+        margin-bottom: 1rem;
+    }
+}
+
+// search-petitions functionality on the homepage
+#search_petitions {
+    .search-field {
+        padding: 0.25em;
+        border-right: none;
+        width: calc(100% - 40px);
+        font-size: $h4-font-size;
+    }
+    .search-button {
+        width: 40px;
+        height: 40px;
+        font-size: $h4-font-size;
+    }
+}
+
+.petition-details-toggler {
+    @extend %content-toggler;
+    span::before {
+        content: '信件细节';
+    }
+}
+.response-details-toggler {
+    @extend %content-toggler;
+    span::before {
+        content: '回复全文';
+    }
+}

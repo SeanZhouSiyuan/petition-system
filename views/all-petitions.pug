@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+html(lang="zh-Hans")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/public/style.css")
+        script(src="/public/script.js")
+        title 浏览所有信件 - 信件
+    body
+        include ./components/header.pug
+        main
+            div(class="wrapper")
+                div(class="section togglable option-panel")
+                    span(class="option-toggler")
+                        span(class="h4")
+                    div(class="togglable-content")
+                        ul(class="flex flex-wrap")
+                            div(class="link-group")
+                                li: a(class="general-link" href="/petitions") 所有信件
+                                li: a(class="general-link" href="/petitions?state=signable") 开放信件
+                                li: a(class="general-link" href="/petitions?state=closed") 关闭的信件
+                                li: a(class="general-link" href="/petitions?state=rejected") 拒收的信件
+                            div(class="link-group")
+                                li: a(class="general-link" href="/petitions?state=awaiting_response") 等待回复的信件
+                                li: a(class="general-link" href="/petitions?state=responded") 已回复的信件
+                            div(class="link-group")
+                                li: a(class="general-link" href="/petitions?state=awaiting_debate") 等待讨论的信件
+                                li: a(class="general-link" href="/petitions?state=debated") 已讨论的信件
+                                li: a(class="general-link" href="/petitions?state=not_debated") 不予讨论的信件
+                h1 #{type}
+                div(class="section" id="search_petitions")
+                    form(class="search-form flex" action='/petitions', method="get")
+                        input(class="search-field border-box" type="text" name="text")
+                        if state
+                            input(class="hidden" type="text" name="state" value=state)
+                        button(class="search-button border-box" type="submit") 搜
+                div(class="section")
+                    ul(class="flex flex-wrap petition-list")
+                        - for (let n = 0; n < petitions.length; n++)
+                            include ./components/misc/petition.pug
+        include ./components/footer.pug

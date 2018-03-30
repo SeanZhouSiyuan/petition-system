@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+html(lang="zh-Hans")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/public/style.css")
+        title 深圳大学建言献策系统 - 深圳大学
+    body
+        include ./components/header.pug
+        main
+            div(class="wrapper")
+                h1(class="hidden") 深圳大学建言献策系统
+                include ./components/index/petition-search.pug
+                include ./components/index/petitions-popular.pug
+                include ./components/index/petitions-responded.pug
+                include ./components/index/petitions-debated.pug
+                include ./components/index/petition-create.pug
+        include ./components/footer.pug

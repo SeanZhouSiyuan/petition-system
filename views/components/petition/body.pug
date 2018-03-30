@@ -1,0 +1,21 @@
+div(class="section")
+    article
+        h1.
+            <div class="heading-prefix secondary-text">信件</div>
+            #{attributes.action}
+        p #{attributes.background}
+        if attributes.additionalDetails
+            div(class="togglable")
+                div(class="petition-details-toggler"): span
+                div(class="togglable-content"): p #{attributes.additionalDetails}
+    if state === 'closed'
+        div(class="fixed-msg").
+            信件已关闭
+            <div class="secondary">所有信件有效期为一个月</div>
+    if eligibility.eligible === true
+        a(class="primary-button h4" href=`${petitionId}/signatures/new`) 给这封信签名
+    else
+        if eligibility.reason === 'author'
+            p 你是这封信件的作者。
+        if eligibility.reason === 'signed'
+            p 你已经给这封信签过名。

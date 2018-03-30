@@ -1,0 +1,32 @@
+footer {
+    background: $szu-color;
+    .copyright {
+        color: white;
+    }
+    .logo.szu-white {
+        width: 70px;
+        height: 70px;
+        background-size: 70px 70px;
+        margin-bottom: 0.75rem;
+    }
+}
+
+#footer_nav {
+    a {
+        display: block;
+        margin-bottom: 1em;
+        color: #fff;
+    }
+    a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    a:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// SZU logo white
+.logo.szu-white {
+    background-image: url(/public/images/szu-logo-white.png);
+}
