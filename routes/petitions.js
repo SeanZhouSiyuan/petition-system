@@ -22,29 +22,18 @@ Router.get('/', (req, res) => {
     var text = query.text ? query.text : '';
     if (state) {
         if (state === 'signable') {
-            condition = {
-                'attributes.state': {
-                    $nin: ['pending', 'rejected', 'closed']
-                },
-                'attributes.action': {
-                    $regex: `${text}`
-                }
-            };
-        } else {
-            condition = {
-                'attributes.state': state,
-                'attributes.action': {
-                    $regex: `${text}`
-                }
-            }
+            state = { $nin: ['pending', 'rejected', 'closed'] };
         }
+        condition = {
+            'attributes.state': state,
+            'attributes.action': { $regex: `${text}` }
+        };
     } else {
         condition = {
-            'attributes.action': {
-                $regex: `${text}`
-            }
+            'attributes.action': { $regex: `${text}` }
         };
     }
+    
     var petitions;
     getAllPetitions(Petition, condition, docs => {
         petitions = [];
@@ -115,7 +104,10 @@ Router.get('/:petitionId', (req, res, next) => {
                         } },
                         err => {
                             if (err) throw err;
-                            var eligibility = checkEligibility(doc, req);
+                            var eligibility = {
+                                eligible: false,
+                                reason: 'closed'
+                            };
                             res.render('petition', {
                                 isAuthenticated: req.isAuthenticated(),
                                 eligibility: eligibility,
@@ -129,6 +121,7 @@ Router.get('/:petitionId', (req, res, next) => {
                     var eligibility = checkEligibility(doc, req);
                     res.render('petition', {
                         isAuthenticated: req.isAuthenticated(),
+                        user: req.user,
                         eligibility: eligibility,
                         petition: doc,
                         newSignature: newSignature,
@@ -140,6 +133,28 @@ Router.get('/:petitionId', (req, res, next) => {
             }
         });
     }
+});
+
+Router.get('/:petitionId/manage', ensureLoggedIn, (req, res) => {
+    var petitionId = req.params.petitionId;
+    Petition.findOne({ petitionId: petitionId }, (err, doc) => {
+        if (err) throw err;
+        res.render('manage-petition', {
+            isAuthenticated: req.isAuthenticated(),
+            user: req.user,
+            petition: doc
+        });
+    });
+});
+
+Router.post('/:petitionId/manage/new-response', urlencodedParser, (req, res) => {
+    var petitionId = req.params.petitionId;
+    Petition.findOne({ petitionId: petitionId }, (err, doc) => {
+        if (err) throw err;
+        utilities.addResponse(req, Petition, doc, () => {
+            res.redirect(`/petitions/${petitionId}`);
+        });
+    });
 });
 
 Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {

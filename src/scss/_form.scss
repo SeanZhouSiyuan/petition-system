@@ -2,6 +2,7 @@ form {
     label {
         display: block;
         margin-bottom: 1em;
+        font-size: $h4-font-size;
     }
     button {
         font-size: $h4-font-size;
@@ -31,13 +32,17 @@ form {
 }
 
 #petition_creator {
-    label {
-        font-size: $h4-font-size;
-    }
     textarea {
         &#petition_action { min-height: 6rem; }
         &#petition_background { min-height: 10rem; }
         &#petition_additional_details { min-height: 12rem; }
+    }
+}
+
+#response_creator {
+    textarea {
+        &#response_summary { min-height: 4rem; }
+        &#response_details { min-height: 8rem; }
     }
 }
 

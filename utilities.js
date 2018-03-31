@@ -200,3 +200,27 @@ module.exports.getPetitionType = function (state) {
         return '所有信件';
     }
 }
+
+module.exports.addResponse = function (req, Petition, petition, callback) {
+    var createdAt = petition.attributes.response.createdAt;
+    var response = {
+        summary: req.body.response_summary,
+        details: req.body.response_details,
+        createdAt: createdAt ? createdAt : new Date()
+    };
+    if (petition.attributes.response) {
+        response.updatedAt = new Date();
+    }
+    Petition.findOneAndUpdate(
+        { petitionId: petition.petitionId },
+        {
+            $set: {
+                'attributes.response': response
+            }
+        },
+        (err, doc) => {
+            if (err) throw err;
+            callback();
+        }
+    );
+}

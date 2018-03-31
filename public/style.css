@@ -256,7 +256,8 @@ h1 {
   text-align: center;
   background: #e3e3e3;
   font-size: 1.25rem;
-  line-height: 1.25; }
+  line-height: 1.25;
+  margin-bottom: 1rem; }
   .fixed-msg .secondary {
     margin-top: 0.5em;
     font-size: 1rem; }
@@ -350,7 +351,8 @@ header {
 
 form label {
   display: block;
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  font-size: 1.25rem; }
 
 form button {
   font-size: 1.25rem; }
@@ -379,9 +381,6 @@ form .form-group {
   form .form-group.error > .error-msg {
     display: block; }
 
-#petition_creator label {
-  font-size: 1.25rem; }
-
 #petition_creator textarea#petition_action {
   min-height: 6rem; }
 
@@ -390,6 +389,12 @@ form .form-group {
 
 #petition_creator textarea#petition_additional_details {
   min-height: 12rem; }
+
+#response_creator textarea#response_summary {
+  min-height: 4rem; }
+
+#response_creator textarea#response_details {
+  min-height: 8rem; }
 
 #petition_previewer button {
   font-size: 1.25rem; }
