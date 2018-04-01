@@ -100,6 +100,15 @@ h1 { font-size: $h1-font-size; }
     }
 }
 
+.disabled-button {
+    @extend %button;
+    background: #e3e3e3;
+    color: rgb(84, 84, 84);
+    &:hover {
+        cursor: default;
+    }
+}
+
 .user-link {
     color: #000;
     &:hover {

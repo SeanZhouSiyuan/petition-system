@@ -215,7 +215,8 @@ module.exports.addResponse = function (req, Petition, petition, callback) {
         { petitionId: petition.petitionId },
         {
             $set: {
-                'attributes.response': response
+                'attributes.response': response,
+                'attributes.state': 'responded'
             }
         },
         (err, doc) => {

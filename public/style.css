@@ -52,16 +52,16 @@ table {
     color: #112e51;
     text-decoration: none; }
 
-.primary-button, .secondary-button, .search-button {
+.primary-button, .secondary-button, .disabled-button, .search-button {
   display: inline-block;
   padding: 0.5em 0.75em;
   border: none;
   border-radius: 0.25rem;
   line-height: 1.25; }
-  .primary-button:hover, .secondary-button:hover, .search-button:hover {
+  .primary-button:hover, .secondary-button:hover, .disabled-button:hover, .search-button:hover {
     text-decoration: none;
     cursor: pointer; }
-  .disabled.primary-button, .disabled.secondary-button, .disabled.search-button {
+  .disabled.primary-button, .disabled.secondary-button, .disabled.disabled-button, .disabled.search-button {
     cursor: default; }
 
 .secondary-text, .petition-item .petition-info, .signature-progress-bar .signature-info {
@@ -185,6 +185,12 @@ h1 {
   color: #000; }
   .secondary-button:hover {
     background: #d6d6d6; }
+
+.disabled-button {
+  background: #e3e3e3;
+  color: #545454; }
+  .disabled-button:hover {
+    cursor: default; }
 
 .user-link {
   color: #000; }
@@ -367,7 +373,8 @@ form .form-control {
   width: 100%;
   line-height: 1.75;
   font-size: 1rem;
-  font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; }
+  font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif;
+  text-align: justify; }
 
 form .error-msg {
   display: none;
@@ -380,6 +387,9 @@ form .form-group {
     border: 4px solid #83045c; }
   form .form-group.error > .error-msg {
     display: block; }
+
+fieldset:disabled .form-control {
+  background: #e3e3e3; }
 
 #petition_creator textarea#petition_action {
   min-height: 6rem; }

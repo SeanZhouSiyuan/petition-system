@@ -20,6 +20,7 @@ Router.get('/', (req, res) => {
     var condition;
     var state = query.state;
     var text = query.text ? query.text : '';
+    var type = utilities.getPetitionType(state);
     if (state) {
         if (state === 'signable') {
             state = { $nin: ['pending', 'rejected', 'closed'] };
@@ -48,7 +49,7 @@ Router.get('/', (req, res) => {
             };
             if (state === 'responded') {
                 petition.attributes.response = doc.attributes.response;
-                petition.attributes.response.createDate = getFullDate(petition.response.createdAt);
+                petition.attributes.response.createDate = getFullDate(doc.attributes.response.createdAt);
             } else if (state === 'debated') {
                 petition.attributes.debate = doc.attributes.debate;
             }
@@ -61,7 +62,7 @@ Router.get('/', (req, res) => {
             isAuthenticated: req.isAuthenticated(),
             petitions: petitions,
             state: state,
-            type: utilities.getPetitionType(state)
+            type: type
         });
     });
 });
@@ -92,6 +93,7 @@ Router.get('/:petitionId', (req, res, next) => {
             if (err) throw err;
             if (doc) {
                 var newSignature = checkSignature(req);
+                var newResponse = req.query.newResponse;
                 var deadlineTime = utilities.getDeadlineTime(doc);
                 var shouldClose = utilities.shouldClose(doc, deadlineTime);
                 var deadline = utilities.getFullDate(deadlineTime);
@@ -113,6 +115,7 @@ Router.get('/:petitionId', (req, res, next) => {
                                 eligibility: eligibility,
                                 petition: doc,
                                 newSignature: newSignature,
+                                newResponse: newResponse,
                                 deadline: deadline
                             });
                         }
@@ -125,6 +128,7 @@ Router.get('/:petitionId', (req, res, next) => {
                         eligibility: eligibility,
                         petition: doc,
                         newSignature: newSignature,
+                        newResponse: newResponse,
                         deadline: deadline
                     });
                 }
@@ -152,7 +156,7 @@ Router.post('/:petitionId/manage/new-response', urlencodedParser, (req, res) => 
     Petition.findOne({ petitionId: petitionId }, (err, doc) => {
         if (err) throw err;
         utilities.addResponse(req, Petition, doc, () => {
-            res.redirect(`/petitions/${petitionId}`);
+            res.redirect(`/petitions/${petitionId}?newResponse=success`);
         });
     });
 });

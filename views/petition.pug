@@ -18,6 +18,8 @@ html(lang="zh-Hans")
             div(class="wrapper")
                 if newSignature
                     div(class="flash-msg") #{newSignature.message}
+                if newResponse == 'success'
+                    div(class="flash-msg") 回复编辑成功
                 include ./components/petition/body.pug
                 div(class="section")
                     include ./components/misc/signature-bar.pug
