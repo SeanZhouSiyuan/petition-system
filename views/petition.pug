@@ -16,10 +16,10 @@ html(lang="zh-Hans")
         include ./components/header.pug
         main
             div(class="wrapper")
-                if newSignature
-                    div(class="flash-msg") #{newSignature.message}
-                if newResponse == 'success'
-                    div(class="flash-msg") 回复编辑成功
+                if signatureCheck
+                    div(class="flash-msg") #{signatureCheck.message}
+                if responseCheck
+                    div(class="flash-msg") #{responseCheck.message}
                 include ./components/petition/body.pug
                 div(class="section")
                     include ./components/misc/signature-bar.pug

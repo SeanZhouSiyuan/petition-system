@@ -92,11 +92,19 @@ Router.get('/:petitionId', (req, res, next) => {
         Petition.findOne({petitionId: petitionId}, (err, doc) => {
             if (err) throw err;
             if (doc) {
-                var newSignature = checkSignature(req);
-                var newResponse = req.query.newResponse;
+                var signatureCheck = utilities.checkSignature(req);
+                var responseCheck =  utilities.checkResponse(req);
                 var deadlineTime = utilities.getDeadlineTime(doc);
                 var shouldClose = utilities.shouldClose(doc, deadlineTime);
                 var deadline = utilities.getFullDate(deadlineTime);
+                var renderOptions = {
+                    isAuthenticated: req.isAuthenticated(),
+                    user: req.user,
+                    petition: doc,
+                    signatureCheck: signatureCheck,
+                    responseCheck: responseCheck,
+                    deadline: deadline
+                };
                 if (shouldClose === true) {
                     Petition.updateOne(
                         { petitionId: petitionId },
@@ -110,27 +118,14 @@ Router.get('/:petitionId', (req, res, next) => {
                                 eligible: false,
                                 reason: 'closed'
                             };
-                            res.render('petition', {
-                                isAuthenticated: req.isAuthenticated(),
-                                eligibility: eligibility,
-                                petition: doc,
-                                newSignature: newSignature,
-                                newResponse: newResponse,
-                                deadline: deadline
-                            });
+                            renderOptions.eligibility = eligibility;
+                            res.render('petition', renderOptions);
                         }
                     );
                 } else {
                     var eligibility = checkEligibility(doc, req);
-                    res.render('petition', {
-                        isAuthenticated: req.isAuthenticated(),
-                        user: req.user,
-                        eligibility: eligibility,
-                        petition: doc,
-                        newSignature: newSignature,
-                        newResponse: newResponse,
-                        deadline: deadline
-                    });
+                    renderOptions.eligibility = eligibility;
+                    res.render('petition', renderOptions);
                 }
             } else {
                 next();
@@ -185,7 +180,7 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
                             },
                             err => {
                                 if (err) throw err;
-                                res.redirect(`/petitions/${petitionId}?msg=done`);
+                                res.redirect(`/petitions/${petitionId}?newSignature=success`);
                             }
                         )
                     } else if (signatureCount === 1000) {
@@ -197,16 +192,16 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
                             },
                             err => {
                                 if (err) throw err;
-                                res.redirect(`/petitions/${petitionId}?msg=done`);
+                                res.redirect(`/petitions/${petitionId}?newSignature=success`);
                             }
                         )
                     } else {
-                        res.redirect(`/petitions/${petitionId}?msg=done`);
+                        res.redirect(`/petitions/${petitionId}?newSignature=success`);
                     }
                 }
             )
         } else {
-            res.redirect(`/petitions/${petitionId}?msg=${eligibility.reason}`);
+            res.redirect(`/petitions/${petitionId}?newSignature=${eligibility.reason}`);
         }
     })
 });

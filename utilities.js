@@ -87,26 +87,40 @@ module.exports.checkEligibility = function (petition, req) {
 }
 
 module.exports.checkSignature = function (req) {
-    if (req.query.msg === 'author') {
-        return {
-            successful: false,
-            message: '签名失败：你不可以给自己的信件签名'
-        };
-    } else if (req.query.msg === 'signed') {
-        return {
-            successful: false,
-            message: '签名失败：你已经给这封信签过名'
-        };
-    } else if (req.query.msg === 'closed') {
-        return {
-            successful: false,
-            message: '签名失败：信件已关闭'
-        };
-    } else if (req.query.msg === 'done') {
-        return {
-            successful: true,
-            message: '签名成功'
+    if (!req.query.newSignature) {
+        return;
+    } else {
+        var signatureCheck = {};
+        if (req.query.newSignature === 'success') {
+            signatureCheck.successful = true;
+            signatureCheck.message = '签名成功';
+        } else {
+            signatureCheck.successful = false;
+            if (req.query.newSignature === 'author') {
+                signatureCheck.message = '签名失败：你不可以给自己的信件签名';
+            } else if (req.query.newSignature === 'signed') {
+                signatureCheck.message = '签名失败：你已经给这封信签过名';
+            } else if (req.query.newSignature === 'closed') {
+                signatureCheck.message = '签名失败：信件已关闭';
+            }
         }
+        return signatureCheck;
+    }
+}
+
+module.exports.checkResponse = function (req) {
+    if (!req.query.newResponse) {
+        return;
+    } else {
+        var responseCheck = {};
+        if (req.query.newResponse === 'success') {
+            responseCheck.successful = true;
+            responseCheck.message = '编辑回复成功';
+        } else {
+            responseCheck.successful = false;
+            responseCheck.message = '编辑回复失败';
+        }
+        return responseCheck;
     }
 }
 
