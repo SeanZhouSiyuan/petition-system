@@ -3,9 +3,9 @@ section(id="popular_petitions")
     ul(class="flex flex-wrap petition-list")
         - var petitions = petitionGroup.popularPetitions;
         - for (let n = 0; n < 4; n++)
-            if petitions[n]
-                include ../misc/petition.pug
-            else
-                include ../misc/petition-popular.pug
+            //- if petitions[n]
+            //-     include ../misc/petition.pug
+            //- else
+            include ../misc/petition-popular.pug
     p: a(class="view-all-link" href="/petitions?state=signable") 浏览所有开放信件
         

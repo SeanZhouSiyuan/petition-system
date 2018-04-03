@@ -135,15 +135,19 @@ Router.get('/:petitionId', (req, res, next) => {
 });
 
 Router.get('/:petitionId/manage', ensureLoggedIn, (req, res) => {
-    var petitionId = req.params.petitionId;
-    Petition.findOne({ petitionId: petitionId }, (err, doc) => {
-        if (err) throw err;
-        res.render('manage-petition', {
-            isAuthenticated: req.isAuthenticated(),
-            user: req.user,
-            petition: doc
+    if (req.user.githubId !== '22345231') {
+        res.redirect('/access-denied?from=manage_petition');
+    } else {
+        var petitionId = req.params.petitionId;
+        Petition.findOne({ petitionId: petitionId }, (err, doc) => {
+            if (err) throw err;
+            res.render('manage-petition', {
+                isAuthenticated: req.isAuthenticated(),
+                user: req.user,
+                petition: doc
+            });
         });
-    });
+    }
 });
 
 Router.post('/:petitionId/manage/new-response', urlencodedParser, (req, res) => {
@@ -153,6 +157,14 @@ Router.post('/:petitionId/manage/new-response', urlencodedParser, (req, res) => 
         utilities.addResponse(req, Petition, doc, () => {
             res.redirect(`/petitions/${petitionId}?newResponse=success`);
         });
+    });
+});
+
+Router.get('/:petitionId/manage/delete', (req, res) => {
+    var petitionId = req.params.petitionId;
+    Petition.findOneAndRemove({ petitionId: petitionId }, (err, doc) => {
+        if (err) throw err;
+        res.redirect(`/?delete=success`);
     });
 });
 

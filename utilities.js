@@ -124,6 +124,22 @@ module.exports.checkResponse = function (req) {
     }
 }
 
+module.exports.checkDelete = function (req) {
+    if (!req.query.delete) {
+        return;
+    } else {
+        var deleteCheck = {};
+        if (req.query.delete === 'success') {
+            deleteCheck.successful = true;
+            deleteCheck.message = '信件删除成功';
+        } else {
+            deleteCheck.successful = false;
+            deleteCheck.message = '信件删除失败';
+        }
+        return deleteCheck;
+    }
+}
+
 module.exports.getAllPetitions = function (Petition, condition, callback) {
     Petition.find(condition, (err, docs) => {
         if (err) throw err;

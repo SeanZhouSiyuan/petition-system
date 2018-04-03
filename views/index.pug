@@ -11,6 +11,8 @@ html(lang="zh-Hans")
         main
             div(class="wrapper")
                 h1(class="hidden") 深圳大学建言献策系统
+                if deleteCheck
+                    div(class="flash-msg") #{deleteCheck.message}
                 include ./components/index/petition-search.pug
                 include ./components/index/petitions-popular.pug
                 include ./components/index/petitions-responded.pug

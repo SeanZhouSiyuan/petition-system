@@ -48,9 +48,11 @@ app.get('/', (req, res) => {
     Petition.find({}, (err, docs) => {
         if (err) throw err;
         var categorizedPetitions = categorizePetitions(docs, getFullDate);
+        var deleteCheck = utilities.checkDelete(req);
         res.render('index', {
             isAuthenticated: req.isAuthenticated(),
             petitionGroup: categorizedPetitions,
+            deleteCheck: deleteCheck,
             homepage: true
         });
     });
@@ -65,6 +67,20 @@ app.get('/login', (req, res) => {
 app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
+});
+
+app.get('/access-denied', (req, res) => {
+    var from = req.query.from;
+    var message;
+    if (from === 'manage_petition') {
+        message = '此页面仅允许系统管理员访问。我们对此带来的不便感到抱歉。';
+    } else {
+        message = '我们对此带来的不便感到抱歉。';
+    }
+    res.render('access-denied', {
+        isAuthenticated: req.isAuthenticated(),
+        message: message
+    });
 });
 
 // fallback

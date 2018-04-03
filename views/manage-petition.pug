@@ -80,5 +80,8 @@ html(lang="zh-Hans")
                                 input(class="form-control" name="debate_transcript_url", id="debate_transcript_url" value=needDebate ? transcriptUrl : '目前无需填写讨论文字记录链接' required)
                             button(class=needDebate ? "primary-button" : "disabled-button" type="submit") 提交讨论成果
                 section
-                    h2 删除信件
+                    h2
+                        | 删除信件
+                        div(class="heading-suffix") 信件一旦删除，将无法恢复。请三思而行。
+                    a(class="primary-button h4" href=`/petitions/${petitionId}/manage/delete`) 删除信件
         include ./components/footer.pug
