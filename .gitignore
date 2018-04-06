@@ -1,3 +1,4 @@
 node_modules/
 config/keys.js
-update-petition.js
+public/script.js
+public/style.css
