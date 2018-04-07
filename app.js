@@ -73,9 +73,9 @@ app.get('/access-denied', (req, res) => {
     var from = req.query.from;
     var message;
     if (from === 'manage_petition') {
-        message = '此页面仅允许系统管理员访问。我们对此带来的不便感到抱歉。';
+        message = '此页面仅允许系统管理员访问。我们对由此带来的不便感到抱歉。';
     } else {
-        message = '我们对此带来的不便感到抱歉。';
+        message = '我们对由此带来的不便感到抱歉。';
     }
     res.render('access-denied', {
         isAuthenticated: req.isAuthenticated(),
@@ -88,6 +88,6 @@ app.get('*', (req, res) => {
     res.render('404');
 });
 
-app.listen('8080', () => {
+app.listen('8080', '0.0.0.0', () => {
     console.log('Server listening on port 8080.');
 });

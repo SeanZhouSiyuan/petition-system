@@ -8,30 +8,50 @@ const utilities = require('../utilities');
 
 const ensureLoggedIn = utilities.ensureLoggedIn;
 const getFullDate = utilities.getFullDate;
+const getDeadlineTime = utilities.getDeadlineTime;
 const createPetition = utilities.createPetition;
 const updateCounter = utilities.updateCounter;
 const checkEligibility = utilities.checkEligibility;
 const checkSignature = utilities.checkSignature;
+const checkResponse = utilities.checkResponse;
 const getAllPetitions = utilities.getAllPetitions;
+const checkExpiration = utilities.checkExpiration;
 
 Router.get('/', (req, res) => {
     var query = req.query;
 
-    var condition;
+    var condition = {};
     var state = query.state;
     var text = query.text ? query.text : '';
+    var textQuery = { $regex: `${text}`, $options: 'i' };
     var type = utilities.getPetitionType(state);
     if (state) {
         if (state === 'signable') {
-            state = { $nin: ['pending', 'rejected', 'closed'] };
+            condition = {
+                'attributes.state': {
+                    $nin: ['pending', 'rejected', 'closed']
+                },
+                'attributes.action': textQuery
+            };
+        } else if (state === 'responded') {
+            condition = {
+                'attributes.response': { $exists: true },
+                'attributes.action': textQuery
+            }
+        } else if (state === 'debated') {
+            condition = {
+                'attributes.debate': { $exists: true },
+                'attributes.action': textQuery
+            }
+        } else {
+            condition = {
+                'attributes.state': state,
+                'attributes.action': textQuery
+            };
         }
-        condition = {
-            'attributes.state': state,
-            'attributes.action': { $regex: `${text}` }
-        };
     } else {
         condition = {
-            'attributes.action': { $regex: `${text}` }
+            'attributes.action': textQuery
         };
     }
     
@@ -49,14 +69,26 @@ Router.get('/', (req, res) => {
             };
             if (state === 'responded') {
                 petition.attributes.response = doc.attributes.response;
-                petition.attributes.response.createDate = getFullDate(doc.attributes.response.createdAt);
+                petition.attributes.response.createdOn = 
+                getFullDate(doc.attributes.response.createdAt);
             } else if (state === 'debated') {
                 petition.attributes.debate = doc.attributes.debate;
+                petition.attributes.debate.createdOn = 
+                getFullDate(doc.attributes.debate.debateDate);
             }
             petitions.push(petition);
         });
         petitions.sort((a, b) => {
-            return b.attributes.signatureCount - a.attributes.signatureCount;
+            if (state === 'responded') {
+                return b.attributes.response.createdAt.getTime() - 
+                a.attributes.response.createdAt.getTime();
+            } else if (state === 'debated') {
+                return b.attributes.debate.debateDate.getTime() - 
+                a.attributes.debate.debateDate.getTime();
+            } else {
+                return b.attributes.signatureCount - 
+                a.attributes.signatureCount;
+            }
         });
         res.render('all-petitions', {
             isAuthenticated: req.isAuthenticated(),
@@ -92,11 +124,11 @@ Router.get('/:petitionId', (req, res, next) => {
         Petition.findOne({petitionId: petitionId}, (err, doc) => {
             if (err) throw err;
             if (doc) {
-                var signatureCheck = utilities.checkSignature(req);
-                var responseCheck =  utilities.checkResponse(req);
-                var deadlineTime = utilities.getDeadlineTime(doc);
-                var shouldClose = utilities.shouldClose(doc, deadlineTime);
-                var deadline = utilities.getFullDate(deadlineTime);
+                var signatureCheck = checkSignature(req);
+                var responseCheck =  checkResponse(req);
+                var deadlineTime = getDeadlineTime(doc);
+                var expired = checkExpiration(doc, deadlineTime);
+                var deadline = getFullDate(deadlineTime);
                 var renderOptions = {
                     isAuthenticated: req.isAuthenticated(),
                     user: req.user,
@@ -105,7 +137,7 @@ Router.get('/:petitionId', (req, res, next) => {
                     responseCheck: responseCheck,
                     deadline: deadline
                 };
-                if (shouldClose === true) {
+                if (expired === true) {
                     Petition.updateOne(
                         { petitionId: petitionId },
                         { $set: {
@@ -219,7 +251,9 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
 });
 
 Router.get('*', (req, res) => {
-    res.render('404');
+    res.render('404', {
+        isAuthenticated: req.isAuthenticated()
+    });
 });
 
 module.exports = Router;

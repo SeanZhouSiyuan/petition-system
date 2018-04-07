@@ -4,16 +4,18 @@ li(class="petition-item")
     h3(class="petition-heading")
         a(class="petition-link" href=`/petitions/${petition.petitionId}`) #{attributes.action}
     if attributes.response
-        - var createDate = attributes.response.createDate;
-        p(class="petition-info") 主管部门于#{createDate}作出了回复
+        - var createdOn = attributes.response.createdOn;
+        p(class="petition-info") 主管部门于#{createdOn}作出了回复
         blockquote
             p(class="h4 response-summary") #{attributes.response.summary}
-        p(class="no-margin-bottom"): a(class="response-link" href=`/petitions/${petition.petitionId}`) 查看回复全文
+        p(class="no-margin-bottom"): a(class="response-link" href=`/petitions/${petition.petitionId}#response`) 查看回复全文
     else if attributes.debate
-        - var debateDate = attributes.debate.debateDate;
-        p(class="petition-info") 学校于#{debateDate}讨论了该议题
+        - var createdOn = attributes.debate.createdOn;
+        p(class="petition-info") 学校于#{createdOn}讨论了该议题
         blockquote
             p(class="h4 debate-summary no-margin-bottom") #{attributes.debate.overview}
+        p: a(class="debate-link" href=`/petitions/${petition.petitionId}#debate`) 查看讨论成果概述
+        p(class="no-margin-bottom"): a(class="debate-link" href="#") 查看针对该议题的研究
     else
         div(class="signature-progress-bar")
             - var signatureCount = attributes.signatureCount === undefined ? 0 : attributes.signatureCount;
