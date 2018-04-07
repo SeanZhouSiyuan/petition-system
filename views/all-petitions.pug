@@ -30,7 +30,8 @@ html(lang="zh-Hans")
                         input(class="search-field border-box" type="text" name="text")
                         if state
                             input(class="hidden" type="text" name="state" value=state)
-                        button(class="search-button border-box" type="submit") 搜
+                        button(class="search-button border-box" type="submit")
+                            include ./components/misc/search-icon.pug
                 div(class="section")
                     ul(class="flex flex-wrap petition-list")
                         - for (let n = 0; n < petitions.length; n++)

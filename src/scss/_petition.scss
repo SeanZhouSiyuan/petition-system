@@ -1,6 +1,6 @@
 .petition-item {
     box-sizing: border-box;
-    padding: 20px;
+    padding: 1.25rem;
     border: 1px solid $border-color;
     margin: 0 10px 20px;
     width: 100%;
@@ -74,9 +74,13 @@
 // search-petitions functionality on the homepage
 #search_petitions {
     .search-field {
+        -webkit-appearance: none;
+        -moz-appearance: none;
         padding: 0.25em;
         border-right: none;
+        border-radius: 0;
         width: calc(100% - 40px);
+        height: 40px;
         font-size: $h4-font-size;
     }
     .search-button {

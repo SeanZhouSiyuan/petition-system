@@ -1,3 +1,13 @@
+html {
+    font-size: 12px;
+}
+
+@media (min-width: 769px) {
+    html {
+        font-size: 16px;
+    }
+}
+
 body {
     font-family: $font-stack;
 }
@@ -20,14 +30,14 @@ a {
 
 // common margin
 .wrapper {
-    padding: 25px 0;
+    padding: 1.5rem 0;
     margin: 0 10px;
 }
 main .wrapper {
     padding: 0;
 }
 section, .section {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
 }
 
 // count border as box size
@@ -62,16 +72,15 @@ article, .article {
     font-size: 1rem;
 }
 
-h4 { font-size: $h4-font-size; }
-h3 { font-size: $h3-font-size; }
-h2 { font-size: $h2-font-size; }
-h1 { font-size: $h1-font-size; }
+h4 { font-size: 1.25rem; }
+h3 { font-size: 1.50rem; }
+h2 { font-size: 1.75rem; }
+h1 { font-size: 2.00rem; }
 
-// font sizes for non-headers
-.h1 { font-size: $h1-font-size; }
-.h2 { font-size: $h2-font-size; }
-.h3 { font-size: $h3-font-size; }
-.h4 { font-size: $h4-font-size; }
+.h4 { font-size: 1.25rem; }
+.h3 { font-size: 1.50rem; }
+.h2 { font-size: 1.75rem; }
+.h1 { font-size: 2.00rem; }
 
 // SZU theme color
 .szu-color { color: $szu-color; }
@@ -181,6 +190,13 @@ h1 { font-size: $h1-font-size; }
     &:hover {
         background: #730032;
     }
+    svg {
+        display: inline-block;
+        width: 60%;
+        height: 60%;
+        vertical-align: middle;
+        fill: #fff;
+    }
 }
 
 .flash-msg {
@@ -224,6 +240,9 @@ h1 { font-size: $h1-font-size; }
     }
     &.open {
         padding-bottom: 0;
+    }
+    .option-toggler {
+        line-height: 1;
     }
 }
 

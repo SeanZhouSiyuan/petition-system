@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "webpack --watch"
+    "build": "webpack --watch --config ./config/webpack.config.js"
   },
   "author": "me",
   "license": "ISC",

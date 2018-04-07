@@ -48,7 +48,7 @@ function formValidation() {
 function togglable() {
     var togglers = document.querySelectorAll('[class$=toggler]');
     // existence check
-    if (togglers === null) return;
+    if (!togglers) return;
 
     togglers.forEach(toggler => {
         var togglable = toggler.parentNode;
