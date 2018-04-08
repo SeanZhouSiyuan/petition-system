@@ -8,7 +8,7 @@ li(class="petition-item")
         p(class="petition-info") 主管部门于#{createdOn}作出了回复
         blockquote
             p(class="h4 response-summary") #{attributes.response.summary}
-        p(class="no-margin-bottom"): a(class="response-link" href=`/petitions/${petition.petitionId}#response`) 查看回复全文
+        p(class="no-margin-bottom"): a(class="response-link" href=`/petitions/${petition.petitionId}?reveal_response=yes#response`) 查看回复全文
     else if attributes.debate
         - var createdOn = attributes.debate.createdOn;
         p(class="petition-info") 学校于#{createdOn}讨论了该议题

@@ -118,6 +118,7 @@ Router.post('/new', urlencodedParser, (req, res) => {
 
 Router.get('/:petitionId', (req, res, next) => {
     var petitionId = req.params.petitionId;
+    var query = req.query;
     if (!parseInt(petitionId)) {
         next();
     } else {
@@ -135,7 +136,8 @@ Router.get('/:petitionId', (req, res, next) => {
                     petition: doc,
                     signatureCheck: signatureCheck,
                     responseCheck: responseCheck,
-                    deadline: deadline
+                    deadline: deadline,
+                    query: query
                 };
                 if (expired === true) {
                     Petition.updateOne(

@@ -1,11 +1,12 @@
 section(id="response")
     - var willRespond = attributes.responseThresholdReachedAt ? true : false;
     - var response = attributes.response;
+    - var revealResponse = query.reveal_response;
     if response
         h2 主管部门已回复
         blockquote
             p(class="h4") #{response.summary}
-        div(class="togglable")
+        div(class=`togglable${revealResponse === 'yes' ? ' open' : ''}`)
             div(class="response-details-toggler"): span
             div(class="togglable-content")
                 div(class="article")
