@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+html(lang="zh-Hans")
+    head
+        include ./components/head.pug
+        title #{user.displayName} - 建言献策系统
+    body
+        include ./components/header.pug
+        main
+            div(class="wrapper")
+                h1.
+                    <div class="heading-prefix secondary-text">用户页</div>
+                    欢迎回来，#{user.displayName}
+                    <div class="heading-suffix">在这里查看你创建的信件，或开始写信。
+                div(class="section")
+                    if petitions.length === 0
+                        div(class="article")
+                            p 你还没有创建过信件。现在就开始写信！
+                    else
+                        ul(class="flex flex-wrap petition-list no-suffix")
+                            - for (let n = 0; n < petitions.length; n++)
+                                include ./components/misc/petition.pug
+                div(class="section")
+                    a(class="h3 primary-button" href="/petitions/new") 开始写信
+        include ./components/footer.pug

@@ -3,6 +3,7 @@ const app = express();
 const passport = require('passport');
 const authRoutes = require('./routes/auth');
 const petitionsRoutes = require('./routes/petitions');
+const profilesRoutes = require('./routes/profiles');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const dbUri = 'mongodb://localhost/petition-system';
@@ -44,6 +45,9 @@ app.use('/auth', authRoutes);
 // serve routes relating to petitions
 app.use('/petitions', petitionsRoutes);
 
+// serve profile routes
+app.use('/profiles', profilesRoutes);
+
 // homepage
 app.get('/', (req, res) => {
     Petition.find({}, (err, docs) => {
@@ -53,6 +57,7 @@ app.get('/', (req, res) => {
         var deleteCheck = utilities.checkDelete(req);
         res.render('index', {
             isAuthenticated: req.isAuthenticated(),
+            user: req.user,
             popularPetitions: sortPetitions(popularPetitions, 'popular'),
             respondedPetitions: sortPetitions(respondedPetitions, 'responded'),
             debatedPetitions: sortPetitions(debatedPetitions, 'debated'),
@@ -74,22 +79,28 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/access-denied', (req, res) => {
-    var from = req.query.from;
+    var code = req.query.code;
     var message;
-    if (from === 'manage_petition') {
+    if (code === 'admin_only') {
         message = '此页面仅允许系统管理员访问。我们对由此带来的不便感到抱歉。';
+    } else if (code === 'owner_only') {
+        message = '你无权访问其他用户的用户页。我们对由此带来的不便感到抱歉。';
     } else {
         message = '我们对由此带来的不便感到抱歉。';
     }
     res.render('access-denied', {
         isAuthenticated: req.isAuthenticated(),
+        user: req.user,
         message: message
     });
 });
 
 // fallback
 app.get('*', (req, res) => {
-    res.render('404');
+    res.render('404', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
+    });
 });
 
 app.listen('8080', '0.0.0.0', () => {

@@ -7,7 +7,8 @@ header
             else
                 a(id="intro" class="h2" href="/") 建言献策系统
         div
-            if (isAuthenticated === true)
-                a(class="user-link" href="/logout") #{user.username}
+            if (user)
+                a(class="general-link" href=`/profiles/${user.githubId}`) #{user.displayName}
+                a(class="user-link logout" href="/logout") 登出
             else
                 a(class="user-link" href="/login") 登录

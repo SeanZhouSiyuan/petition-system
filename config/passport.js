@@ -20,17 +20,17 @@ passport.use(
             if (err) done(err);
             if (doc) {
                 console.log('Found existing user.');
-                if (doc.displayName !== profile.displayName) {
-                    User.findOneAndUpdate(
-                        { githubId: profile.id },
-                        { $set: { displayName: profile.displayName }},
-                        { new: true },
-                        (err, doc) => {
-                            if (err) done(err);
-                            done(null, doc);
-                        }
-                    );
-                }
+                // if (doc.displayName !== profile.displayName) {
+                //     User.findOneAndUpdate(
+                //         { githubId: profile.id },
+                //         { $set: { displayName: profile.displayName }},
+                //         { new: true },
+                //         (err, doc) => {
+                //             if (err) done(err);
+                //             done(null, doc);
+                //         }
+                //     );
+                // }
                 done(null, doc);
             } else {
                 new User({

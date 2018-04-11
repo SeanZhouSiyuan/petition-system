@@ -81,6 +81,7 @@ Router.get('/', (req, res) => {
         });
         res.render('all-petitions', {
             isAuthenticated: req.isAuthenticated(),
+            user: req.user,
             petitions: sortPetitions(petitions, state),
             state: state,
             type: type
@@ -89,7 +90,10 @@ Router.get('/', (req, res) => {
 });
 
 Router.get('/new', ensureLoggedIn, (req, res) => {
-    res.render('new-petition', { isAuthenticated: req.isAuthenticated() });
+    res.render('new-petition', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
+    });
 });
 
 Router.post('/new', urlencodedParser, (req, res) => {
@@ -159,7 +163,7 @@ Router.get('/:petitionId', (req, res, next) => {
 
 Router.get('/:petitionId/manage', ensureLoggedIn, (req, res) => {
     if (req.user.githubId !== '22345231') {
-        res.redirect('/access-denied?from=manage_petition');
+        res.redirect('/access-denied?code=admin_only');
     } else {
         var petitionId = req.params.petitionId;
         Petition.findOne({ petitionId: petitionId }, (err, doc) => {
@@ -243,7 +247,8 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
 
 Router.get('*', (req, res) => {
     res.render('404', {
-        isAuthenticated: req.isAuthenticated()
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user
     });
 });
 
