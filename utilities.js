@@ -56,24 +56,23 @@ module.exports.updateCounter = function (Counter, callback) {
 }
 
 module.exports.checkEligibility = function (petition, req) {
-    if (!req.user || req.user.githubId === '22345231') {
-        return {
-            eligible: true,
-        };
-    } else {
-        var eligibility = {
-            eligible: false,
-            reason: null
-        };
-        if (petition.attributes.state === 'closed') {
-            eligibility.reason = 'closed';
-        } else if (petition.attributes.signaturesById.indexOf(req.user.githubId) !== -1) {
-            eligibility.reason = 'signed';
-        } else if (petition.attributes.creatorId === req.user.githubId) {
-            eligibility.reason = 'author';
-        }
+    var eligibility = {
+        eligible: false
+    };
+    if (req.user && req.user.githubId === '22345231') {
+        eligibility.eligible = true;
         return eligibility;
     }
+    if (petition.attributes.state === 'closed') {
+        eligibility.reason = 'closed';
+    } else if (req.user && petition.attributes.signaturesById.indexOf(req.user.githubId) !== -1) {
+        eligibility.reason = 'signed';
+    } else if (req.user && petition.attributes.creatorId === req.user.githubId) {
+        eligibility.reason = 'author';
+    } else {
+        eligibility.eligible = true;
+    }
+    return eligibility;
 }
 
 module.exports.checkSignature = function (req) {
@@ -167,24 +166,32 @@ module.exports.categorizePetitions = function (petitions, getFullDate) {
             debatedPetitions.push(doc);
         }
     });
-    popularPetitions.sort((a, b) => {
-        return b.attributes.signatureCount - 
-        a.attributes.signatureCount;
-    });
-    respondedPetitions.sort((a, b) => {
-        return b.attributes.response.createdAt.getTime() - 
-        a.attributes.response.createdAt.getTime();
-    });
-    debatedPetitions.sort((a, b) => {
-        return b.attributes.debate.debateDate.getTime() - 
-        a.attributes.debate.debateDate.getTime();
-    });
     var categorizedPetitions = {
         popularPetitions: popularPetitions,
         respondedPetitions: respondedPetitions,
         debatedPetitions: debatedPetitions
     };
     return categorizedPetitions;
+}
+
+module.exports.sortPetitions = function (petitions, type) {
+    if (type === 'responded') {
+        petitions.sort((a, b) => {
+            return b.attributes.response.createdAt.getTime() - 
+            a.attributes.response.createdAt.getTime();
+        });
+    } else if (type === 'debated') {
+        petitions.sort((a, b) => {
+            return b.attributes.debate.debateDate.getTime() - 
+            a.attributes.debate.debateDate.getTime();
+        });
+    } else {
+        petitions.sort((a, b) => {
+            return b.attributes.signatureCount - 
+            a.attributes.signatureCount;
+        });
+    }
+    return petitions;
 }
 
 module.exports.getDeadlineTime = function (petition) {

@@ -16,6 +16,7 @@ const checkSignature = utilities.checkSignature;
 const checkResponse = utilities.checkResponse;
 const getAllPetitions = utilities.getAllPetitions;
 const checkExpiration = utilities.checkExpiration;
+const sortPetitions = utilities.sortPetitions;
 
 Router.get('/', (req, res) => {
     var query = req.query;
@@ -78,21 +79,9 @@ Router.get('/', (req, res) => {
             }
             petitions.push(petition);
         });
-        petitions.sort((a, b) => {
-            if (state === 'responded') {
-                return b.attributes.response.createdAt.getTime() - 
-                a.attributes.response.createdAt.getTime();
-            } else if (state === 'debated') {
-                return b.attributes.debate.debateDate.getTime() - 
-                a.attributes.debate.debateDate.getTime();
-            } else {
-                return b.attributes.signatureCount - 
-                a.attributes.signatureCount;
-            }
-        });
         res.render('all-petitions', {
             isAuthenticated: req.isAuthenticated(),
-            petitions: petitions,
+            petitions: sortPetitions(petitions, state),
             state: state,
             type: type
         });

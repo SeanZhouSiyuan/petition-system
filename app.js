@@ -11,6 +11,7 @@ const utilities = require('./utilities');
 
 const categorizePetitions = utilities.categorizePetitions;
 const getFullDate = utilities.getFullDate;
+const sortPetitions = utilities.sortPetitions;
 
 mongoose.connect(dbUri, err => {
     if (err) throw err;
@@ -47,11 +48,14 @@ app.use('/petitions', petitionsRoutes);
 app.get('/', (req, res) => {
     Petition.find({}, (err, docs) => {
         if (err) throw err;
-        var categorizedPetitions = categorizePetitions(docs, getFullDate);
+        var {popularPetitions, respondedPetitions, debatedPetitions} = 
+            categorizePetitions(docs, getFullDate);
         var deleteCheck = utilities.checkDelete(req);
         res.render('index', {
             isAuthenticated: req.isAuthenticated(),
-            petitionGroup: categorizedPetitions,
+            popularPetitions: sortPetitions(popularPetitions, 'popular'),
+            respondedPetitions: sortPetitions(respondedPetitions, 'responded'),
+            debatedPetitions: sortPetitions(debatedPetitions, 'debated'),
             deleteCheck: deleteCheck,
             homepage: true
         });
