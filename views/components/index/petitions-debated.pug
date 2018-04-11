@@ -3,7 +3,7 @@ section(id="petitions_with_debated_outcome")
         学校开会讨论
         <div class="heading-suffix">签名数达到1000时，学校将开会讨论</div>
     ul(class="flex flex-wrap petition-list")
-        - var petitions = petitionGroup.debatedPetitions;
+        - var petitions = debatedPetitions;
         - for (let n = 0; n < 4; n++)
             if (petitions[n])
                 include ../misc/petition.pug

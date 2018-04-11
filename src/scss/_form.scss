@@ -35,6 +35,7 @@ form {
 fieldset:disabled {
     .form-control {
         background: #e3e3e3;
+        color: rgb(84, 84, 84);
     }
 }
 
@@ -67,6 +68,6 @@ fieldset:disabled {
 
 #petition_draft {
     padding-left: 1rem;
-    border-left: 0.5rem solid #d6d6d6;
+    border-left: 0.5rem solid $border-color;
     margin-bottom: $h2-font-size;
 }

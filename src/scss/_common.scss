@@ -141,10 +141,6 @@ h1 { font-size: 2.00rem; }
     display: none;
 }
 
-.disabled {
-    opacity: 0.5;
-}
-
 .togglable {
     .togglable-content {
         display: none;
@@ -219,7 +215,7 @@ h1 { font-size: 2.00rem; }
 .fixed-msg {
     padding: 1rem 0;
     text-align: center;
-    background: #e3e3e3;
+    background: $backdrop;
     font-size: $h4-font-size;
     line-height: 1.25;
     margin-bottom: 1rem;
@@ -231,7 +227,7 @@ h1 { font-size: 2.00rem; }
 
 .option-panel {
     padding: 1rem;
-    background-color: #e3e3e3;
+    background-color: $backdrop;
     li {
         margin-bottom: 1rem;
     }

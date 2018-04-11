@@ -13,7 +13,7 @@ passport.use(
         // Strategy options
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: '/auth/github/authorized'
+        callbackURL: 'http://192.168.31.146:8080/auth/github/authorized'
     }, (accessToken, refreshToken, profile, done) => {
         // verify callback
         User.findOne({ githubId: profile.id }, (err, doc) => {
