@@ -4,7 +4,7 @@ const Petition = require('../models/petition');
 const utilities = require('../utilities');
 const ensureLoggedIn = utilities.ensureLoggedIn;
 
-Router.get('/:userId', (req, res, next) => {
+Router.get('/:userId', ensureLoggedIn, (req, res, next) => {
     var userId = req.params.userId;
     if (!parseInt(userId)) {
         next();

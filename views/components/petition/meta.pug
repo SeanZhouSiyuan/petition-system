@@ -1,8 +1,7 @@
 ul(class="section petition-meta")
-    - var creator = attributes.creatorName === 'Sean Zhou' ? '周思远' : attributes.creatorName;
     li(class="meta")
         div 写信人
-        div(class="data") #{creator}
+        div(class="data") #{attributes.creatorName}
     li(class="meta")
         div 截止日期
         div(class="data") #{deadline}
