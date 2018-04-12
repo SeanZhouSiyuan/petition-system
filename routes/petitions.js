@@ -182,7 +182,7 @@ Router.post('/:petitionId/manage/new-response', urlencodedParser, (req, res) => 
     Petition.findOne({ petitionId: petitionId }, (err, doc) => {
         if (err) throw err;
         utilities.addResponse(req, Petition, doc, () => {
-            res.redirect(`/petitions/${petitionId}?newResponse=success`);
+            res.redirect(`/petitions/${petitionId}?new_response=success&reveal_response=yes`);
         });
     });
 });
@@ -219,7 +219,7 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
                             },
                             err => {
                                 if (err) throw err;
-                                res.redirect(`/petitions/${petitionId}?newSignature=success`);
+                                res.redirect(`/petitions/${petitionId}?new_signature=success`);
                             }
                         )
                     } else if (signatureCount === 1000) {
@@ -231,16 +231,16 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
                             },
                             err => {
                                 if (err) throw err;
-                                res.redirect(`/petitions/${petitionId}?newSignature=success`);
+                                res.redirect(`/petitions/${petitionId}?new_signature=success`);
                             }
                         )
                     } else {
-                        res.redirect(`/petitions/${petitionId}?newSignature=success`);
+                        res.redirect(`/petitions/${petitionId}?new_signature=success`);
                     }
                 }
             )
         } else {
-            res.redirect(`/petitions/${petitionId}?newSignature=${eligibility.reason}`);
+            res.redirect(`/petitions/${petitionId}?new_signature=${eligibility.reason}`);
         }
     })
 });

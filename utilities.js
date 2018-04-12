@@ -76,20 +76,20 @@ module.exports.checkEligibility = function (petition, req) {
 }
 
 module.exports.checkSignature = function (req) {
-    if (!req.query.newSignature) {
+    if (!req.query.new_signature) {
         return;
     } else {
         var signatureCheck = {};
-        if (req.query.newSignature === 'success') {
+        if (req.query.new_signature === 'success') {
             signatureCheck.successful = true;
             signatureCheck.message = '签名成功';
         } else {
             signatureCheck.successful = false;
-            if (req.query.newSignature === 'author') {
+            if (req.query.new_signature === 'author') {
                 signatureCheck.message = '签名失败：你不可以给自己的信件签名';
-            } else if (req.query.newSignature === 'signed') {
+            } else if (req.query.new_signature === 'signed') {
                 signatureCheck.message = '签名失败：你已经给这封信签过名';
-            } else if (req.query.newSignature === 'closed') {
+            } else if (req.query.new_signature === 'closed') {
                 signatureCheck.message = '签名失败：信件已关闭';
             }
         }
@@ -98,11 +98,11 @@ module.exports.checkSignature = function (req) {
 }
 
 module.exports.checkResponse = function (req) {
-    if (!req.query.newResponse) {
+    if (!req.query.new_response) {
         return;
     } else {
         var responseCheck = {};
-        if (req.query.newResponse === 'success') {
+        if (req.query.new_response === 'success') {
             responseCheck.successful = true;
             responseCheck.message = '编辑回复成功';
         } else {
