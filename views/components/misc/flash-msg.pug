@@ -1,0 +1,10 @@
+if query && query.logged_in === 'yes'
+    div(class="flash-msg") 你已成功登入
+if query && query.logged_out === 'yes'
+    div(class="flash-msg") 你已成功登出
+if signatureCheck
+    div(class="flash-msg") #{signatureCheck.message}
+if responseCheck
+    div(class="flash-msg") #{responseCheck.message}
+if deleteCheck
+    div(class="flash-msg") #{deleteCheck.message}

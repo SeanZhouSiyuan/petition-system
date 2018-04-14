@@ -62,7 +62,8 @@ app.get('/', (req, res) => {
             respondedPetitions: sortPetitions(respondedPetitions, 'responded'),
             debatedPetitions: sortPetitions(debatedPetitions, 'debated'),
             deleteCheck: deleteCheck,
-            homepage: true
+            homepage: true,
+            query: req.query
         });
     });
 });
@@ -75,7 +76,7 @@ app.get('/login', (req, res) => {
 // logout
 app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('/?logged_out=yes');
 });
 
 app.get('/access-denied', (req, res) => {
@@ -84,7 +85,7 @@ app.get('/access-denied', (req, res) => {
     if (code === 'admin_only') {
         message = '此页面仅允许系统管理员访问。我们对由此带来的不便感到抱歉。';
     } else if (code === 'owner_only') {
-        message = '你无权访问其他用户的用户页。我们对由此带来的不便感到抱歉。';
+        message = '此用户页仅允许该用户访问。我们对由此带来的不便感到抱歉。';
     } else {
         message = '我们对由此带来的不便感到抱歉。';
     }

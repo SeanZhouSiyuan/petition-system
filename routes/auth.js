@@ -4,7 +4,7 @@ const passportConfig = require('../config/passport');
 
 router.get('/github', passport.authenticate('github'));
 router.get('/github/authorized', passport.authenticate('github'), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(req.session.returnTo || '/?logged_in=yes');
     req.session.returnTo = null;
 });
 

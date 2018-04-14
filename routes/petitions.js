@@ -84,7 +84,8 @@ Router.get('/', (req, res) => {
             user: req.user,
             petitions: sortPetitions(petitions, state),
             state: state,
-            type: type
+            type: type,
+            query: req.query
         });
     });
 });
@@ -92,7 +93,8 @@ Router.get('/', (req, res) => {
 Router.get('/new', ensureLoggedIn, (req, res) => {
     res.render('new-petition', {
         isAuthenticated: req.isAuthenticated(),
-        user: req.user
+        user: req.user,
+        query: req.query
     });
 });
 
@@ -171,7 +173,8 @@ Router.get('/:petitionId/manage', ensureLoggedIn, (req, res) => {
             res.render('manage-petition', {
                 isAuthenticated: req.isAuthenticated(),
                 user: req.user,
-                petition: doc
+                petition: doc,
+                query: req.query
             });
         });
     }

@@ -30,7 +30,8 @@ Router.get('/:userId', ensureLoggedIn, (req, res, next) => {
                 res.render('profile', {
                     user: doc,
                     petitions: petitions,
-                    page: 'profile'
+                    page: 'profile',
+                    query: req.query
                 });
             });
         } else {

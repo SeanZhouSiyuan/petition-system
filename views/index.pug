@@ -7,9 +7,8 @@ html(lang="zh-Hans")
         include ./components/header.pug
         main
             div(class="wrapper")
+                include ./components/misc/flash-msg.pug
                 h1(class="hidden") 某某大学建言献策系统
-                if deleteCheck
-                    div(class="flash-msg") #{deleteCheck.message}
                 include ./components/index/petition-search.pug
                 include ./components/index/petitions-popular.pug
                 include ./components/index/petitions-responded.pug
