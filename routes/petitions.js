@@ -208,7 +208,7 @@ Router.get('/:petitionId/signatures/new', ensureLoggedIn, (req, res) => {
             Petition.updateOne(
                 { petitionId: petitionId },
                 {
-                    $set: { 'attributes.signatureCount': ++signatureCount },
+                    $inc: { 'attributes.signatureCount': 1 },
                     $push: { 'attributes.signaturesById': req.user.githubId }
                 },
                 err => {

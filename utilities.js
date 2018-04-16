@@ -40,10 +40,14 @@ module.exports.updateCounter = function (Counter, callback) {
     Counter.findOne({}, (err, doc) => {
         if (err) throw err;
         if (doc) {
-            Counter.findOneAndUpdate({}, { count: doc.count + 1 }, err => {
-                if (err) throw err;
-                callback();
-            });
+            Counter.findOneAndUpdate(
+                {},
+                { $inc: { count: 1 } },
+                err => {
+                    if (err) throw err;
+                    callback();
+                }
+            );
         } else {
             new Counter({
                 count: 1
@@ -143,27 +147,25 @@ module.exports.categorizePetitions = function (petitions, getFullDate) {
     petitions.forEach(petition => {
         var attributes = {
             action: petition.attributes.action
-        }
-        doc = {
+        };
+        var doc = {
             petitionId: petition.petitionId,
             attributes: attributes
         }
         var state = petition.attributes.state;
-        if (state === 'open' || state === 'awaiting_response') {
-            doc.attributes.signatureCount = petition.attributes.signatureCount;
-            popularPetitions.push(doc);
-        }
         var response = petition.attributes.response;
-        if (response) {
-            doc.attributes.response = response;
-            doc.attributes.response.createdOn = getFullDate(response.createdAt);
-            respondedPetitions.push(doc);
-        }
         var debate = petition.attributes.debate;
         if (debate) {
             doc.attributes.debate = debate;
             doc.attributes.debate.createdOn = getFullDate(debate.debateDate);
             debatedPetitions.push(doc);
+        } else if (response) {
+            doc.attributes.response = response;
+            doc.attributes.response.createdOn = getFullDate(response.createdAt);
+            respondedPetitions.push(doc);
+        } else if (state === 'open') {
+            doc.attributes.signatureCount = petition.attributes.signatureCount;
+            popularPetitions.push(doc);
         }
     });
     var categorizedPetitions = {
